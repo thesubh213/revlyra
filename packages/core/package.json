@@ -1,0 +1,41 @@
+{
+  "name": "@revlyra/core",
+  "version": "0.1.0",
+  "description": "Runtime-neutral review integrity engine: normalization, fingerprints, detectors, calibrated scoring, explainability, review selection.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  },
+  "keywords": [
+    "reviews",
+    "fraud",
+    "integrity",
+    "moderation",
+    "trust-and-safety"
+  ],
+  "license": "SEE LICENSE IN LICENSE"
+}

@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (${{ matrix.os }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Lint and format
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
+
+  pack:
+    name: package smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Synthetic evaluation gate
+        run: pnpm eval
+      - name: Verify package contents
+        run: pnpm --filter revlyra exec npm pack --dry-run
+      - name: Verify CLI bin and shebang
+        run: |
+          node -e "const fs=require('fs');const p='packages/revlyra/dist/cli/index.js';if(!fs.readFileSync(p,'utf8').startsWith('#!/usr/bin/env node'))process.exit(1)"
+          node packages/revlyra/dist/cli/index.js --help
+      - name: Pack packages
+        run: |
+          mkdir -p /tmp/revlyra-pack
+          pnpm --filter @revlyra/core pack --pack-destination /tmp/revlyra-pack
+          pnpm --filter revlyra pack --pack-destination /tmp/revlyra-pack
+      - name: Install tarballs with scripts disabled
+        run: |
+          mkdir -p /tmp/revlyra-smoke
+          cd /tmp/revlyra-smoke
+          npm init -y >/dev/null
+          npm install --ignore-scripts /tmp/revlyra-pack/revlyra-core-*.tgz /tmp/revlyra-pack/revlyra-[0-9]*.tgz
+          node -e "import('revlyra').then(m=>{if(!m.createRevlyra)process.exit(1)})"
+          node -e "const m=require('revlyra');if(!m.createRevlyra)process.exit(1)"
+          node node_modules/revlyra/dist/cli/index.js --help
+
+  audit:
+    name: dependency audit
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --prod --audit-level=high

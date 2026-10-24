@@ -1,0 +1,10 @@
+Copyright (c) 2026 Revlyra. All rights reserved.
+
+This repository is published source-available for development and evaluation.
+Redistribution, sublicensing, production use by third parties, and publishing
+to a package registry are not permitted under this notice. A final license
+(FSL-1.1-ALv2 is the planned candidate) will replace this file before the
+first npm release.
+
+No warranty is provided. This software is a risk-scoring tool, not a legal
+determination that any review or reviewer is fraudulent.

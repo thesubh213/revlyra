@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    image: revlyra:local
+    env_file: .env
+    environment:
+      REVLYRA_HOST: 0.0.0.0
+      REVLYRA_PORT: 8787
+      REVLYRA_DB_PATH: /data/revlyra.db
+    command: ["node", "/app/packages/revlyra/dist/cli/index.js", "serve", "--no-worker"]
+    ports:
+      - "8787:8787"
+    volumes:
+      - revlyra-data:/data
+    restart: unless-stopped
+
+  worker:
+    image: revlyra:local
+    env_file: .env
+    environment:
+      REVLYRA_DB_PATH: /data/revlyra.db
+    command: ["node", "/app/packages/revlyra/dist/cli/index.js", "worker"]
+    volumes:
+      - revlyra-data:/data
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  revlyra-data:

@@ -1,0 +1,38 @@
+name: Feature request
+description: Propose a detector improvement, compliance surface, or integration.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Detector and scoring changes affect real moderation decisions, so context
+        matters: what signal are we missing, and what updated behavior would look like?
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or gap
+      description: What scenario is currently mishandled (false positives and false negatives both count)?
+      placeholder: E.g. coordinated campaigns spread over 14 days are scored low …
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: What you would like Revlyra to do, including any reason codes or policy knobs.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other tools, presets, or workarounds you evaluated.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Acknowledgements
+      options:
+        - label: I have read docs/LIMITATIONS.md and understand scope (detectors are calibrated signals, not proof).
+          required: true

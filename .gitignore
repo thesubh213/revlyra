@@ -1,0 +1,24 @@
+node_modules/
+dist/
+coverage/
+.turbo/
+.commandcode/
+.env
+.env.*
+!.env.example
+data/
+.revlyra/
+*.db
+*.db-shm
+*.db-wal
+*.log
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+
+# Packaging and local tooling artifacts
+*.tgz
+.pnpm-store/
+.idea/
+*.swp
+.eslintcache

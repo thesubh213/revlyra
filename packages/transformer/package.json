@@ -1,0 +1,52 @@
+{
+  "name": "@revlyra/transformer",
+  "version": "0.1.0",
+  "description": "Optional local transformer tier for Revlyra: paraphrase embeddings and text-authenticity classification.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@revlyra/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "@huggingface/transformers": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "@huggingface/transformers": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "revlyra",
+    "transformers",
+    "onnx",
+    "embeddings",
+    "review-integrity"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "devDependencies": {
+    "@types/node": "^26.6.5"
+  }
+}

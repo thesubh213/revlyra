@@ -1,0 +1,53 @@
+{
+  "version": "2026.10.1",
+  "featureSpecVersion": "1.0.0",
+  "intercept": -3.05,
+  "weights": {
+    "text.exactDup": 3.2,
+    "text.nearDup": 1.9,
+    "text.templateMatch": 0.9,
+    "text.templateCoverage": 0.8,
+    "text.genericness": 0.5,
+    "text.specificity": -0.8,
+    "text.sentimentMismatch": 0.7,
+    "text.promoDensity": 0.6,
+    "text.llmStyle": 0.35,
+    "text.obfuscation": 1.1,
+    "beh.newAccount": 0.6,
+    "beh.velocity": 1.2,
+    "beh.ratingDeviation": 0.8,
+    "beh.lowEntropy": 0.7,
+    "beh.fiveStarRatio": 0.8,
+    "beh.priorFlags": 1.6,
+    "beh.unverified": 0.2,
+    "beh.categoryHopping": 0.5,
+    "temp.burst": 1.1,
+    "temp.lowInterArrivalCv": 0.9,
+    "temp.impossibleIntervals": 1.0,
+    "temp.sync": 1.0,
+    "temp.reviewWithinHourOfSignup": 0.5,
+    "net.deviceReuse": 1.0,
+    "net.subnetReuse": 0.4,
+    "net.headless": 0.6,
+    "net.datacenter": 0.3,
+    "net.localeMismatch": 0.2,
+    "media.exactReuse": 2.8,
+    "media.nearReuse": 1.6,
+    "media.exifStripped": 0.2,
+    "media.editSoftware": 0.3,
+    "media.timeMismatch": 0.5,
+    "graph.campaign": 2.0,
+    "rating.excessFiveStar": 0.8,
+    "rating.chiSeverity": 0.7,
+    "rating.bimodality": 0.5,
+    "rating.meanShift": 0.5,
+    "policy.incentive": 0.8
+  },
+  "calibration": {
+    "kind": "identity"
+  },
+  "metrics": {
+    "note": 0,
+    "calibrationStatus": 1
+  }
+}
