@@ -1,2 +1,13 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalize all text files to LF in the repo and the working tree.
+# Biome's formatter requires LF; this keeps Linux/macOS/Windows and CI
+# consistent, avoiding autocrlf CRLF checkout on Windows runners.
+* text=auto eol=lf
+
+# Text types that matter for tooling; explicit eol keeps them LF everywhere.
+*.sh text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ts text eol=lf
+*.md text eol=lf
