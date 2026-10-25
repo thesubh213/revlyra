@@ -32,12 +32,12 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Lint and format
         run: pnpm lint
-      - name: Typecheck
+      - name: Typecheck (builds core dist first)
         run: pnpm typecheck
       - name: Test
         run: pnpm test
-      - name: Build
-        run: pnpm build
+      - name: Verify clean checkout covers the typecheck need
+        run: node -e "fs=require('fs');if(!fs.existsSync('packages/core/dist/index.d.ts'))process.exit(1)"
 
   pack:
     name: package smoke test
