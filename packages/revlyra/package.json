@@ -39,7 +39,7 @@
   "dependencies": {
     "@fastify/cors": "^11.0.0",
     "@fastify/helmet": "^13.0.0",
-    "@fastify/rate-limit": "^10.0.0",
+    "@fastify/rate-limit": "^11.2.1",
     "@revlyra/core": "workspace:*",
     "commander": "^15.0.0",
     "csv-parse": "^6.0.0",
